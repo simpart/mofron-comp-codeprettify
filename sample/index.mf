@@ -1,0 +1,5 @@
+<setting>
+    <tag load="mofron-comp-codeprettify">Code</tag>
+</setting>
+
+<Code lang="py">print("CodePrettify Component")</Code>
