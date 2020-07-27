@@ -27,4 +27,10 @@ npm install mofron mofron-comp-codeprettify
 | | lang | string | lang type (without 'lang-') |
 | | editable | boolean | true: code is editable |
 | | | | false: code is not editable |
+| | baseColor | mixed(color) | string: button text color name, #hex |
+| | | | array: [red, green, blue, (alpha)] |
+| | | key-value | style option |
+| | width | string (size) | width |
+| | | | undefined: call as getter |
+| | | dict | set size option |
 

@@ -3,6 +3,8 @@
  * @brief text component for code-prettify
  * @license MIT
  */
+const comutl = mofron.util.common;
+
 module.exports = class extends mofron.class.Component {
     /**
      * initialize component
@@ -37,6 +39,8 @@ module.exports = class extends mofron.class.Component {
     initDomConts () {
         try {
 	    super.initDomConts("pre");
+	    this.style({ "overflow" : "scroll" });
+            
             let code = new mofron.class.Dom({
 	                   tag: "code", class: ["prettyprint"], component: this
                        });
@@ -86,10 +90,55 @@ module.exports = class extends mofron.class.Component {
      * @param (boolean) true: code is editable
      *                  false: code is not editable
      * @return (boolean) edit flag
+     * @type parameter
      */
     editable (prm) {
         try {
 	    return this.childDom().attrs({ "contenteditable" : prm });
+	} catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+    
+    /**
+     * background color setter/getter
+     * 
+     * @param (mixed(color)) string: button text color name, #hex
+     *                        array: [red, green, blue, (alpha)]
+     * @param (key-value) style option
+     * @return (string) background color
+     *                  null: not set yet
+     * @type parameter
+     */
+    baseColor (prm, opt) {
+        try {
+	    if (undefined === prm) {
+                return this.rootDom()[0].style("background");
+	    }
+            this.rootDom()[0].style({ "background" : comutl.getcolor(prm).toString() });
+	} catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+    
+    /**
+     * width setter/getter
+     *
+     * @param (string (size)) width
+     *                        undefined: call as getter
+     * @param (dict) set size option
+     * @return (string (size)) width
+     * @type parameter
+     */
+    width (prm, opt) {
+        try {
+	    let buf = this.childDom();
+            this.childDom(this.rootDom()[0]);
+            let ret = super.width(prm,opt);
+            this.childDom(buf);
+	    return ret;
 	} catch (e) {
             console.error(e.stack);
             throw e;
