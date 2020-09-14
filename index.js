@@ -17,7 +17,7 @@ module.exports = class extends mofron.class.Component {
     constructor (p1) {
         try {
             super();
-            this.name("CodePrettify");
+            this.modname("CodePrettify");
 	    this.shortForm("text","lang");
 	    
 	    /* init config */
