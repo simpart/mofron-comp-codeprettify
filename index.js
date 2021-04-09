@@ -4,6 +4,7 @@
  * @license MIT
  */
 const comutl = mofron.util.common;
+require("code-prettify");
 
 module.exports = class extends mofron.class.Component {
     /**
@@ -14,7 +15,7 @@ module.exports = class extends mofron.class.Component {
      * @short text
      * @type private
      */
-    constructor (p1) {
+    constructor (p1,p2) {
         try {
             super();
             this.modname("CodePrettify");
@@ -23,7 +24,7 @@ module.exports = class extends mofron.class.Component {
 	    /* init config */
             
 	    if (0 < arguments.length) {
-                this.config(p1);
+                this.config(p1,p2);
             }
         } catch (e) {
             console.error(e.stack);
@@ -39,6 +40,7 @@ module.exports = class extends mofron.class.Component {
     initDomConts () {
         try {
 	    super.initDomConts("pre");
+
 	    this.style({ "overflow" : "scroll" });
             
             let code = new mofron.class.Dom({
@@ -53,6 +55,21 @@ module.exports = class extends mofron.class.Component {
     }
     
     /**
+     * render code
+     * 
+     * @type private
+     */
+    afterRender () {
+        try {
+            super.afterRender();
+	    PR.prettyPrint();
+	} catch (e) {
+            console.error(e.stack);
+            throw e;
+	}
+    }
+    
+    /**
      * code contents getter/setter
      * 
      * @param (string) code contents
@@ -62,7 +79,10 @@ module.exports = class extends mofron.class.Component {
      */
     text (prm) {
         try {
-	    return this.childDom().text(prm);
+	    if (undefined === prm) {
+	        return this.childDom().text();
+	    }
+	    this.childDom().text(prm);
 	} catch (e) {
 	    console.error(e.stack);
             throw e;
